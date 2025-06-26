@@ -2,23 +2,20 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>OPPO XSS PoC</title>
+  <title>OPPO Reflected XSS PoC</title>
 </head>
 <body>
-  <h3>OPPO XSS + CORS PoC</h3>
-  <p>Payload will be injected from the <code>thirdpartytype</code> URL parameter:</p>
-
-  <div id="output"></div>
+  <h2>OPPO Reflected XSS PoC</h2>
+  <p>This PoC will inject and execute JavaScript passed via the <code>thirdpartytype</code> URL parameter.</p>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const third = params.get('thirdpartytype');
+    const query = new URLSearchParams(window.location.search);
+    const param = query.get("thirdpartytype");
 
-    if (third) {
-      const container = document.getElementById("output");
-
-      // Unsafe innerHTML injection to simulate XSS
-      container.innerHTML = third;
+    if (param) {
+      const script = document.createElement("script");
+      script.innerHTML = param;
+      document.body.appendChild(script);
     }
   </script>
 </body>
