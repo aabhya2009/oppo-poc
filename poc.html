@@ -6,12 +6,19 @@
 </head>
 <body>
   <h3>OPPO XSS + CORS PoC</h3>
-  <p>Payload will be injected from URL parameter <code>thirdpartytype</code>.</p>
+  <p>Payload will be injected from the <code>thirdpartytype</code> URL parameter:</p>
+
+  <div id="output"></div>
+
   <script>
     const params = new URLSearchParams(window.location.search);
     const third = params.get('thirdpartytype');
+
     if (third) {
-      document.body.innerHTML += third; // Simulates reflected XSS
+      const container = document.getElementById("output");
+
+      // Unsafe innerHTML injection to simulate XSS
+      container.innerHTML = third;
     }
   </script>
 </body>
